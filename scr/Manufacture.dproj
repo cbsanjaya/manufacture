@@ -113,6 +113,8 @@
             <Form>MainView</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Interfaces.pas"/>
+        <DCCReference Include="MainViewModel.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -135,7 +137,7 @@
                 </Source>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\Manufacture.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="..\_app\Win32\Debug\Manufacture.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Manufacture.exe</RemoteName>
                         <Overwrite>true</Overwrite>

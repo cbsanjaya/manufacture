@@ -14,11 +14,13 @@ type
     { Public declarations }
   end;
 
-var
-  MainView: TMainView;
-
 implementation
 
 {$R *.dfm}
+
+
+
+initialization
+  TMainView.ClassName;
 
 end.

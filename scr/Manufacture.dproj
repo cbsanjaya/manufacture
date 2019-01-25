@@ -109,11 +109,15 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <DCCReference Include="Interfaces.pas"/>
+        <DCCReference Include="Aurelius.Drivers.MyDac.pas"/>
+        <DCCReference Include="DataConnection.pas">
+            <Form>MyDacConnection</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="MainViewForm.pas">
             <Form>MainView</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Interfaces.pas"/>
         <DCCReference Include="MainViewModel.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

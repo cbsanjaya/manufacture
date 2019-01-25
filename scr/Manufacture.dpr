@@ -2,10 +2,12 @@ program Manufacture;
 
 uses
   Vcl.Forms,
-  MainViewForm in 'MainViewForm.pas' {MainView},
+  DSharp.PresentationModel.VCLApplication,
   Interfaces in 'Interfaces.pas',
-  MainViewModel in 'MainViewModel.pas',
-  DSharp.PresentationModel.VCLApplication;
+  Aurelius.Drivers.MyDac in 'Aurelius.Drivers.MyDac.pas',
+  DataConnection in 'DataConnection.pas' {MyDacConnection: TDataModule},
+  MainViewForm in 'MainViewForm.pas' {MainView},
+  MainViewModel in 'MainViewModel.pas';
 
 {$R *.res}
 

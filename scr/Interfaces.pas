@@ -2,6 +2,9 @@ unit Interfaces;
 
 interface
 
+uses
+  System.SysUtils;
+
 type
   IPanelFrame = interface
     ['{753BD983-6F7C-418F-9D9B-96FFAD37E138}']
@@ -25,6 +28,7 @@ type
   IMainView = interface(IBaseView<IMainPresenter>)
     ['{062D2FAA-A4AA-46AF-B6EB-92E43F4E47EB}']
     procedure CreateMenuPage;
+    procedure OpenFrame(ATitle: string; AProc: TProc<IPanelFrame>);
   end;
 
   IBaseFrameView<T> = interface(IBaseView<T>)
@@ -38,6 +42,14 @@ type
 
   IMenuView = interface(IBaseFrameView<IMenuPresenter>)
     ['{2B04293C-2E7C-4BA6-A2E1-214A1700E53B}']
+  end;
+
+  IProductsPresenter = interface(IBasePresenter)
+    ['{323CEBCE-7104-438E-B346-CF71B75C1756}']
+  end;
+
+  IProductsView = interface(IBaseFrameView<IProductsPresenter>)
+    ['{CBB6BF9D-3F30-40C6-AAB9-292CC3B9249A}']
   end;
 
 implementation

@@ -4,11 +4,12 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Interfaces;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Interfaces, Spring.Container;
 
 type
   TMenuView = class(TFrame, IMenuView)
     SpeedButton1: TSpeedButton;
+    procedure SpeedButton1Click(Sender: TObject);
   private
     FPresenter: IMenuPresenter;
     FMain: IMainView;
@@ -33,6 +34,20 @@ end;
 procedure TMenuView.SetPresenter(APresenter: IMenuPresenter);
 begin
   FPresenter := APresenter;
+end;
+
+procedure TMenuView.SpeedButton1Click(Sender: TObject);
+var
+  LFrame : IProductsView;
+begin
+  FMain.OpenFrame('Daftar Barang',
+    procedure (AOwner: IPanelFrame)
+    begin
+      LFrame := GlobalContainer.Resolve<IProductsView>;
+      LFrame.SetMainAndPanel(Self.FMain, AOwner);
+    end
+
+  );
 end;
 
 end.

@@ -39,7 +39,7 @@ type
   public
     procedure SetPresenter(APresenter: IMainPresenter);
     procedure CreateMenuPage;
-    procedure OpenFrame(ATitle: string; AProc: TProc<TObject>);
+    procedure OpenFrame(ATitle: string; AProc: TProc<IPanelFrame>);
     procedure ShowReport;
     procedure CloseTab(AControl: TWinControl);
   end;
@@ -115,7 +115,7 @@ var
   LFrame : IMenuView;
 begin
   OpenFrame('Menu Utama',
-    procedure (AOwner: TObject)
+    procedure (AOwner: IPanelFrame)
     begin
       LFrame := GlobalContainer.Resolve<IMenuView>;
       LFrame.SetMainAndPanel(Self, TPanel(AOwner));
@@ -142,7 +142,7 @@ begin
   APanel.Show;
 end;
 
-procedure TMainView.OpenFrame(ATitle: string; AProc: TProc<TObject>);
+procedure TMainView.OpenFrame(ATitle: string; AProc: TProc<IPanelFrame>);
 var
   LPanel :TPanel;
 begin

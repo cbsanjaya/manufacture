@@ -12,10 +12,12 @@ implementation
 uses
   Forms,
   Interfaces,
-  MainViewForm,
   MainPresenter,
+  MainViewForm,
+  MenuPresenter,
   MenuViewFrame,
-  MenuPresenter;
+  ProductsPresenter,
+  ProductsViewFrame;
 
 procedure RegisterTypes;
 var
@@ -35,6 +37,13 @@ begin
     begin
       Result := TMenuView.Create(Application);
       TMenuPresenter.Create(Result);
+    end);
+
+  container.RegisterType<IProductsView, TProductsView>.DelegateTo(
+    function: TProductsView
+    begin
+      Result := TProductsView.Create(Application);
+      TProductsPresenter.Create(Result);
     end);
 
   container.Build;

@@ -3,6 +3,7 @@ object MenuView: TMenuView
   Top = 0
   Width = 320
   Height = 240
+  Align = alClient
   TabOrder = 0
   object SpeedButton1: TSpeedButton
     Left = 40
@@ -141,5 +142,6 @@ object MenuView: TMenuView
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000}
+    OnClick = SpeedButton1Click
   end
 end

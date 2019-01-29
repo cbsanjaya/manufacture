@@ -10,7 +10,9 @@ uses
   MainPresenter in 'MainPresenter.pas',
   MenuViewFrame in 'MenuViewFrame.pas' {MenuView: TFrame},
   MenuPresenter in 'MenuPresenter.pas',
-  Registrations in 'Registrations.pas';
+  Registrations in 'Registrations.pas',
+  ProductsViewFrame in 'ProductsViewFrame.pas' {ProductsView: TFrame},
+  ProductsPresenter in 'ProductsPresenter.pas';
 
 {$R *.res}
 

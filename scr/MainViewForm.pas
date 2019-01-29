@@ -3,24 +3,178 @@ unit MainViewForm;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+  Interfaces,
+  Spring.Container,
+  Winapi.Windows,
+  System.SysUtils,
+  System.Classes,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.ExtCtrls,
+  ChromeTabs,
+  ChromeTabsClasses;
 
 type
-  TMainView = class(TForm)
+  //interceptor class
+  TPanel = class(Vcl.ExtCtrls.TPanel, IPanelFrame)
   private
-    { Private declarations }
+    FTab: TChromeTab;
   public
-    { Public declarations }
+    function GetObject: TObject;
+    property Tab: TChromeTab read FTab write FTab;
   end;
+
+  TMainView = class(TForm, IMainView)
+    Tabs: TChromeTabs;
+    PanelMenu: TPanel;
+    procedure TabsActiveTabChanged(Sender: TObject; ATab: TChromeTab);
+    procedure TabsButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
+      var Close: Boolean);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormShow(Sender: TObject);
+  private
+    FPresenter : IMainPresenter;
+    PageIndex : Cardinal;
+    procedure CreateNewPage(ACaption: string; var APanel: TPanel); overload;
+  public
+    procedure SetPresenter(APresenter: IMainPresenter);
+    procedure CreateMenuPage;
+    procedure OpenFrame(ATitle: string; AProc: TProc<TObject>);
+    procedure ShowReport;
+    procedure CloseTab(AControl: TWinControl);
+  end;
+
+var
+  MainView : TMainView;
 
 implementation
 
 {$R *.dfm}
 
+{ TMainView }
 
+procedure TMainView.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  CanClose := MessageBox(0, 'Benarkan, Anda akan Keluar dari Applikasi?',
+    'Keluar Aplikasi', MB_ICONQUESTION or MB_YESNO) = mrYes;
+end;
 
-initialization
-  TMainView.ClassName;
+procedure TMainView.FormShow(Sender: TObject);
+begin
+  FPresenter.Start;
+end;
+
+procedure TMainView.TabsActiveTabChanged(Sender: TObject; ATab: TChromeTab);
+var
+  LPanel :TPanel;
+begin
+  if ATab.Tag = 0 then Exit;
+
+  LPanel := FindComponent('Panel' + IntToStr(ATab.Tag)) as TPanel;
+  LPanel.BringToFront;
+end;
+
+procedure TMainView.TabsButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
+  var Close: Boolean);
+var
+  LPanel :TPanel;
+begin
+  Close := False;
+  if Tabs.Tabs.Count = 1 then
+  begin
+    Self.Close;
+    Exit;
+  end;
+
+  LPanel := FindComponent('Panel' + IntToStr(ATab.Tag)) as TPanel;
+  LPanel.Free;
+  Close := True;
+end;
+
+procedure TMainView.CloseTab(AControl: TWinControl);
+var
+  LTab : TChromeTab;
+  LPanel, LControl :TPanel;
+begin
+  if Tabs.Tabs.Count = 1 then
+  begin
+    Self.Close;
+    Exit;
+  end;
+  LControl := AControl as TPanel;
+
+  Tabs.Tabs.DeleteTab(LControl.Tab.Index, False);
+  LPanel := FindComponent('Panel' + IntToStr(LControl.Tag)) as TPanel;
+  LPanel.Free;
+end;
+
+procedure TMainView.CreateMenuPage;
+var
+  LTab : TChromeTab;
+  LPanel :TPanel;
+  LFrame : IMenuView;
+begin
+  OpenFrame('Menu Utama',
+    procedure (AOwner: TObject)
+    begin
+      LFrame := GlobalContainer.Resolve<IMenuView>;
+      LFrame.SetMainAndPanel(Self, TPanel(AOwner));
+    end
+  );
+end;
+
+procedure TMainView.CreateNewPage(ACaption: string; var APanel: TPanel);
+var
+  LTab : TChromeTab;
+begin
+  Inc(PageIndex);
+  LTab := Tabs.Tabs.Add;
+  LTab.Caption := ACaption;
+  LTab.Tag := PageIndex;
+
+  APanel := TPanel.Create(Self);
+  APanel.Parent := TForm(Self);
+  APanel.Tab := LTab;
+  APanel.Tag := LTab.Tag;
+  APanel.Name := 'Panel' + IntToStr(APanel.Tag);
+//  APanel.Caption := '';
+  APanel.Align := alClient;
+  APanel.Show;
+end;
+
+procedure TMainView.OpenFrame(ATitle: string; AProc: TProc<TObject>);
+var
+  LPanel :TPanel;
+begin
+  CreateNewPage(ATitle, LPanel);
+  AProc(LPanel);
+end;
+
+procedure TMainView.SetPresenter(APresenter: IMainPresenter);
+begin
+  FPresenter := APresenter;
+end;
+
+procedure TMainView.ShowReport;
+var
+  LPanel :TPanel;
+//  LPreview: TfrxPreviewForm;
+begin
+  CreateNewPage('Laporan', LPanel);
+
+//  Report.ShowReport;
+//  LPreview := Report.PreviewForm as TfrxPreviewForm;
+//  LPreview.CancelB.Visible := False;
+//  LPreview.BorderStyle := bsNone;
+//  LPreview.Parent := LPanel;
+//  LPreview.Align := alClient;
+end;
+
+{ TPanel }
+
+function TPanel.GetObject: TObject;
+begin
+  Result := Self;
+end;
 
 end.

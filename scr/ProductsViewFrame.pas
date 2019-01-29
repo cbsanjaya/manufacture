@@ -9,7 +9,8 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   cxDataControllerConditionalFormattingRulesManagerDialog, Data.DB, cxDBData,
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls;
+  cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls, Vcl.Buttons,
+  Vcl.Menus, Vcl.StdCtrls, cxButtons;
 
 type
   TProductsView = class(TFrame, IProductsView)
@@ -17,6 +18,8 @@ type
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;
     cxGrid1: TcxGrid;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
   private
     FPresenter: IProductsPresenter;
     FMain: IMainView;
@@ -32,10 +35,16 @@ implementation
 
 { TFrame1 }
 
+procedure TProductsView.Button1Click(Sender: TObject);
+begin
+  FMain.CloseTab(Self.Parent as IPanelFrame);
+end;
+
 procedure TProductsView.SetMainAndPanel(AMain: IMainView; APanel: IPanelFrame);
 begin
   FMain := AMain;
   Self.Parent := TWinControl(APanel);
+  Self.Name := 'ProductsView' + IntToStr(Self.Parent.Tag);
 end;
 
 procedure TProductsView.SetPresenter(APresenter: IProductsPresenter);

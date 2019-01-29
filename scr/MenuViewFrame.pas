@@ -46,7 +46,6 @@ begin
       LFrame := GlobalContainer.Resolve<IProductsView>;
       LFrame.SetMainAndPanel(Self.FMain, AOwner);
     end
-
   );
 end;
 

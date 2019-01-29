@@ -8,7 +8,6 @@ uses
 type
   IPanelFrame = interface
     ['{753BD983-6F7C-418F-9D9B-96FFAD37E138}']
-    function GetObject: TObject;
   end;
 
   IBasePresenter = interface
@@ -29,6 +28,7 @@ type
     ['{062D2FAA-A4AA-46AF-B6EB-92E43F4E47EB}']
     procedure CreateMenuPage;
     procedure OpenFrame(ATitle: string; AProc: TProc<IPanelFrame>);
+    procedure CloseTab(AControl: IPanelFrame);
   end;
 
   IBaseFrameView<T> = interface(IBaseView<T>)

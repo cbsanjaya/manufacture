@@ -11,11 +11,19 @@ object ProductsView: TProductsView
     Width = 185
     Height = 512
     Align = alRight
-    Caption = 'Panel1'
     TabOrder = 0
     ExplicitLeft = 184
     ExplicitTop = 240
     ExplicitHeight = 41
+    object Button1: TButton
+      Left = 56
+      Top = 248
+      Width = 75
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 0
+      OnClick = Button1Click
+    end
   end
   object cxGrid1: TcxGrid
     Left = 0

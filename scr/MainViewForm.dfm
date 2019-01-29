@@ -342,6 +342,7 @@ object MainView: TMainView
     LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineSize = 1.000000000000000000
     LookAndFeel.ScrollButtons.Arrow.Disabled.OutlineAlpha = 200
     Align = alTop
+    PopupMenu = PopupTabs
     TabOrder = 0
   end
   object PanelMenu: TPanel
@@ -351,5 +352,9 @@ object MainView: TMainView
     Height = 201
     Align = alClient
     TabOrder = 1
+  end
+  object PopupTabs: TPopupMenu
+    Left = 248
+    Top = 120
   end
 end

@@ -12,7 +12,8 @@ uses
   Vcl.Forms,
   Vcl.ExtCtrls,
   ChromeTabs,
-  ChromeTabsClasses;
+  ChromeTabsClasses,
+  Vcl.Menus;
 
 type
   //interceptor class
@@ -20,13 +21,13 @@ type
   private
     FTab: TChromeTab;
   public
-    function GetObject: TObject;
     property Tab: TChromeTab read FTab write FTab;
   end;
 
   TMainView = class(TForm, IMainView)
     Tabs: TChromeTabs;
     PanelMenu: TPanel;
+    PopupTabs: TPopupMenu;
     procedure TabsActiveTabChanged(Sender: TObject; ATab: TChromeTab);
     procedure TabsButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
       var Close: Boolean);
@@ -41,7 +42,7 @@ type
     procedure CreateMenuPage;
     procedure OpenFrame(ATitle: string; AProc: TProc<IPanelFrame>);
     procedure ShowReport;
-    procedure CloseTab(AControl: TWinControl);
+    procedure CloseTab(AControl: IPanelFrame);
   end;
 
 var
@@ -87,11 +88,12 @@ begin
   end;
 
   LPanel := FindComponent('Panel' + IntToStr(ATab.Tag)) as TPanel;
+  if ATab.Tag = 1 then Exit;
   LPanel.Free;
   Close := True;
 end;
 
-procedure TMainView.CloseTab(AControl: TWinControl);
+procedure TMainView.CloseTab(AControl: IPanelFrame);
 var
   LTab : TChromeTab;
   LPanel, LControl :TPanel;
@@ -119,6 +121,7 @@ begin
     begin
       LFrame := GlobalContainer.Resolve<IMenuView>;
       LFrame.SetMainAndPanel(Self, TPanel(AOwner));
+      TPanel(AOwner).Tab.HideCloseButton := True;
     end
   );
 end;
@@ -137,7 +140,7 @@ begin
   APanel.Tab := LTab;
   APanel.Tag := LTab.Tag;
   APanel.Name := 'Panel' + IntToStr(APanel.Tag);
-//  APanel.Caption := '';
+  APanel.Caption := '';
   APanel.Align := alClient;
   APanel.Show;
 end;
@@ -168,13 +171,6 @@ begin
 //  LPreview.BorderStyle := bsNone;
 //  LPreview.Parent := LPanel;
 //  LPreview.Align := alClient;
-end;
-
-{ TPanel }
-
-function TPanel.GetObject: TObject;
-begin
-  Result := Self;
 end;
 
 end.

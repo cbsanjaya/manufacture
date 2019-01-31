@@ -24,7 +24,7 @@ type
     property Tab: TChromeTab read FTab write FTab;
   end;
 
-  TMainView = class(TForm, IMainView)
+  TMainView = class(TForm)
     Tabs: TChromeTabs;
     PanelMenu: TPanel;
     PopupTabs: TPopupMenu;

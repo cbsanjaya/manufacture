@@ -10,24 +10,20 @@ uses
   cxDataControllerConditionalFormattingRulesManagerDialog, Data.DB, cxDBData,
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls, Vcl.Buttons,
-  Vcl.Menus, Vcl.StdCtrls, cxButtons, Aurelius.Bind.Dataset,
-  System.Generics.Collections, DataModels;
+  Vcl.Menus, Vcl.StdCtrls, cxButtons, System.Generics.Collections;
 
 type
-  TProductsView = class(TFrame, IProductsView)
+  TProductsView = class(TFrame)
     Panel1: TPanel;
     View: TcxGridDBTableView;
     Level: TcxGridLevel;
     Grid: TcxGrid;
     Button1: TButton;
-    ProductsDataSet: TAureliusDataset;
     ProductsDataSource: TDataSource;
     Button2: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
-    FPresenter: IProductsPresenter;
-    FMain: IMainView;
     { Private declarations }
   public
     procedure SetPresenter(APresenter: IProductsPresenter);

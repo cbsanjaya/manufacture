@@ -58,15 +58,7 @@ object ProductsView: TProductsView
       GridView = View
     end
   end
-  object ProductsDataSet: TAureliusDataset
-    FieldDefs = <>
-    CreateSelfField = False
-    IncludeUnmappedObjects = False
-    Left = 336
-    Top = 104
-  end
   object ProductsDataSource: TDataSource
-    DataSet = ProductsDataSet
     Left = 336
     Top = 152
   end

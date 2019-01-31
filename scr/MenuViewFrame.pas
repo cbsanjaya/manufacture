@@ -7,7 +7,7 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Interfaces, Spring.Container;
 
 type
-  TMenuView = class(TFrame, IMenuView)
+  TMenuView = class(TFrame)
     SpeedButton1: TSpeedButton;
     procedure SpeedButton1Click(Sender: TObject);
   private

@@ -4,16 +4,17 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Interfaces, cxGraphics,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics,
   cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData,
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   cxDataControllerConditionalFormattingRulesManagerDialog, Data.DB, cxDBData,
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls, Vcl.Buttons,
-  Vcl.Menus, Vcl.StdCtrls, cxButtons, System.Generics.Collections;
+  Vcl.Menus, Vcl.StdCtrls, cxButtons, System.Generics.Collections, MemDS,
+  DBAccess, MyAccess, MainViewForm, cxCurrencyEdit;
 
 type
-  TProductsView = class(TFrame, IProductsView)
+  TProductsView = class(TFrame)
     Panel1: TPanel;
     View: TcxGridDBTableView;
     Level: TcxGridLevel;
@@ -21,13 +22,22 @@ type
     Button1: TButton;
     ProductsDataSource: TDataSource;
     Button2: TButton;
+    QProducts: TMyQuery;
+    Viewid: TcxGridDBColumn;
+    Viewdescription: TcxGridDBColumn;
+    Viewunit: TcxGridDBColumn;
+    Viewcost_price: TcxGridDBColumn;
+    Viewprice: TcxGridDBColumn;
+    Viewto_buy: TcxGridDBColumn;
+    Viewto_sell: TcxGridDBColumn;
+    Viewis_raw: TcxGridDBColumn;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
-    FMain: IMainView;
+    FMain: TMainView;
     { Private declarations }
   public
-    property Main: IMainView read FMain write FMain;
+    constructor Create(AOwner: TComponent; AMain: TMainView);
   end;
 
 implementation
@@ -44,6 +54,13 @@ end;
 procedure TProductsView.Button2Click(Sender: TObject);
 begin
 //
+end;
+
+constructor TProductsView.Create(AOwner: TComponent; AMain: TMainView);
+begin
+  inherited Create(AOwner);
+  Self.Parent := AOwner as TWinControl;
+  FMain := AMain;
 end;
 
 end.

@@ -4,17 +4,17 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Interfaces, Spring.Container;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, MainViewForm;
 
 type
   TMenuView = class(TFrame)
     SpeedButton1: TSpeedButton;
     procedure SpeedButton1Click(Sender: TObject);
   private
-    FMain: IMainView;
+    FMain: TMainView;
     { Private declarations }
   public
-    property Main: IMainView read FMain write FMain;
+    property Main: TMainView read FMain write FMain;
   end;
 
 implementation
@@ -32,9 +32,7 @@ begin
   FMain.OpenFrame('Daftar Barang',
     procedure (AOwner: TWinControl)
     begin
-      LFrame := TProductsView.Create(Self);
-      LFrame.Main := FMain;
-      LFrame.Parent:= AOwner;
+      LFrame := TProductsView.Create(AOwner, FMain);
     end
   );
 end;

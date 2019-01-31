@@ -2,7 +2,7 @@ object MainView: TMainView
   Left = 0
   Top = 0
   Caption = 'Aplikasi Pabrik'
-  ClientHeight = 231
+  ClientHeight = 449
   ClientWidth = 505
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -349,12 +349,23 @@ object MainView: TMainView
     Left = 0
     Top = 30
     Width = 505
-    Height = 201
+    Height = 419
     Align = alClient
     TabOrder = 1
+    ExplicitHeight = 201
   end
   object PopupTabs: TPopupMenu
     Left = 248
     Top = 120
+  end
+  object Con: TMyConnection
+    Database = 'amdk'
+    Port = 33066
+    Username = 'cahya'
+    Server = 'localhost'
+    LoginPrompt = False
+    Left = 64
+    Top = 102
+    EncryptedPassword = '9CFF9EFF97FF86FF9EFF'
   end
 end

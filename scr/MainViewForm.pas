@@ -3,7 +3,6 @@ unit MainViewForm;
 interface
 
 uses
-  Interfaces,
   Spring.Container,
   Winapi.Windows,
   System.SysUtils,
@@ -13,7 +12,10 @@ uses
   Vcl.ExtCtrls,
   ChromeTabs,
   ChromeTabsClasses,
-  Vcl.Menus;
+  Vcl.Menus,
+  Data.DB,
+  DBAccess,
+  MyAccess;
 
 type
   //interceptor class
@@ -24,10 +26,11 @@ type
     property Tab: TChromeTab read FTab write FTab;
   end;
 
-  TMainView = class(TForm, IMainView)
+  TMainView = class(TForm)
     Tabs: TChromeTabs;
     PanelMenu: TPanel;
     PopupTabs: TPopupMenu;
+    Con: TMyConnection;
     procedure TabsActiveTabChanged(Sender: TObject; ATab: TChromeTab);
     procedure TabsButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
       var Close: Boolean);

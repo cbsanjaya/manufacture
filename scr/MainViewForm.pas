@@ -122,9 +122,7 @@ begin
   OpenFrame('Menu Utama',
     procedure (AOwner: TWinControl)
     begin
-      LFrame := TMenuView.Create(AOwner);
-      LFrame.Parent := AOwner;
-      LFrame.Main := Self;
+      LFrame := TMenuView.Create(AOwner, Self);
       TPanel(AOwner).Tab.HideCloseButton := True;
     end
   );

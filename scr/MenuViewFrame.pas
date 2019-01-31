@@ -14,7 +14,7 @@ type
     FMain: TMainView;
     { Private declarations }
   public
-    property Main: TMainView read FMain write FMain;
+    constructor Create(AOwner: TComponent; AMain: TMainView);
   end;
 
 implementation
@@ -24,6 +24,14 @@ implementation
 uses ProductsViewFrame;
 
 { TMenuView }
+
+constructor TMenuView.Create(AOwner: TComponent; AMain: TMainView);
+begin
+  inherited Create(AOwner);
+
+  Self.Parent := AOwner as TWinControl;
+  FMain := AMain;
+end;
 
 procedure TMenuView.SpeedButton1Click(Sender: TObject);
 var

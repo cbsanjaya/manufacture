@@ -19,9 +19,9 @@ type
     View: TcxGridDBTableView;
     Level: TcxGridLevel;
     Grid: TcxGrid;
-    Button1: TButton;
+    BtnKeluar: TButton;
     ProductsDataSource: TDataSource;
-    Button2: TButton;
+    BtnRefresh: TButton;
     QProducts: TMyQuery;
     Viewid: TcxGridDBColumn;
     Viewdescription: TcxGridDBColumn;
@@ -31,8 +31,9 @@ type
     Viewto_buy: TcxGridDBColumn;
     Viewto_sell: TcxGridDBColumn;
     Viewis_raw: TcxGridDBColumn;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    BtnTambah: TButton;
+    procedure BtnKeluarClick(Sender: TObject);
+    procedure BtnRefreshClick(Sender: TObject);
   private
     FMain: TMainView;
     { Private declarations }
@@ -46,12 +47,12 @@ implementation
 
 { TFrame1 }
 
-procedure TProductsView.Button1Click(Sender: TObject);
+procedure TProductsView.BtnKeluarClick(Sender: TObject);
 begin
   FMain.CloseTab(Self.Parent);
 end;
 
-procedure TProductsView.Button2Click(Sender: TObject);
+procedure TProductsView.BtnRefreshClick(Sender: TObject);
 begin
 //
 end;

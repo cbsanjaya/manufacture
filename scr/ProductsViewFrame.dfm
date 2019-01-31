@@ -1,47 +1,59 @@
 object ProductsView: TProductsView
   Left = 0
   Top = 0
-  Width = 758
+  Width = 759
   Height = 504
   Align = alClient
   TabOrder = 0
   ExplicitWidth = 451
   ExplicitHeight = 305
   object Panel1: TPanel
-    Left = 619
+    Left = 0
     Top = 0
-    Width = 139
-    Height = 504
-    Align = alRight
+    Width = 759
+    Height = 40
+    Align = alTop
     TabOrder = 0
-    ExplicitLeft = 312
-    ExplicitHeight = 305
-    object Button1: TButton
-      Left = 32
+    DesignSize = (
+      759
+      40)
+    object BtnKeluar: TButton
+      Left = 673
       Top = 8
       Width = 75
       Height = 25
-      Caption = 'Button1'
+      Anchors = [akTop, akRight]
+      Caption = 'Keluar'
       TabOrder = 0
-      OnClick = Button1Click
+      OnClick = BtnKeluarClick
+      ExplicitLeft = 672
     end
-    object Button2: TButton
-      Left = 32
-      Top = 144
+    object BtnRefresh: TButton
+      Left = 8
+      Top = 8
       Width = 75
       Height = 25
       Caption = 'Refresh'
       TabOrder = 1
-      OnClick = Button2Click
+      OnClick = BtnRefreshClick
+    end
+    object BtnTambah: TButton
+      Left = 89
+      Top = 8
+      Width = 75
+      Height = 25
+      Caption = 'Tambah'
+      TabOrder = 2
     end
   end
   object Grid: TcxGrid
     Left = 0
-    Top = 0
-    Width = 619
-    Height = 504
+    Top = 40
+    Width = 759
+    Height = 464
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 0
     ExplicitWidth = 312
     ExplicitHeight = 305
     object View: TcxGridDBTableView
@@ -50,15 +62,16 @@ object ProductsView: TProductsView
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.CellHints = True
+      OptionsBehavior.DragDropText = True
       OptionsBehavior.IncSearch = True
       OptionsData.Deleting = False
       OptionsData.DeletingConfirmation = False
       OptionsData.Editing = False
       OptionsData.Inserting = False
       OptionsSelection.MultiSelect = True
-      OptionsSelection.CellMultiSelect = True
-      OptionsSelection.InvertSelect = False
       OptionsView.ColumnAutoWidth = True
+      OptionsView.GroupByBox = False
       object Viewid: TcxGridDBColumn
         DataBinding.FieldName = 'id'
       end

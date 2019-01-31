@@ -17,14 +17,14 @@ uses
 
 type
   //interceptor class
-  TPanel = class(Vcl.ExtCtrls.TPanel, IPanelFrame)
+  TPanel = class(Vcl.ExtCtrls.TPanel)
   private
     FTab: TChromeTab;
   public
     property Tab: TChromeTab read FTab write FTab;
   end;
 
-  TMainView = class(TForm)
+  TMainView = class(TForm, IMainView)
     Tabs: TChromeTabs;
     PanelMenu: TPanel;
     PopupTabs: TPopupMenu;
@@ -34,15 +34,13 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormShow(Sender: TObject);
   private
-    FPresenter : IMainPresenter;
     PageIndex : Cardinal;
     procedure CreateNewPage(ACaption: string; var APanel: TPanel); overload;
   public
-    procedure SetPresenter(APresenter: IMainPresenter);
     procedure CreateMenuPage;
-    procedure OpenFrame(ATitle: string; AProc: TProc<IPanelFrame>);
+    procedure OpenFrame(ATitle: string; AProc: TProc<TWinControl>);
     procedure ShowReport;
-    procedure CloseTab(AControl: IPanelFrame);
+    procedure CloseTab(AControl: TWinControl);
   end;
 
 var
@@ -51,6 +49,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses MenuViewFrame;
 
 { TMainView }
 
@@ -62,7 +62,7 @@ end;
 
 procedure TMainView.FormShow(Sender: TObject);
 begin
-  FPresenter.Start;
+  CreateMenuPage;
 end;
 
 procedure TMainView.TabsActiveTabChanged(Sender: TObject; ATab: TChromeTab);
@@ -93,7 +93,7 @@ begin
   Close := True;
 end;
 
-procedure TMainView.CloseTab(AControl: IPanelFrame);
+procedure TMainView.CloseTab(AControl: TWinControl);
 var
   LTab : TChromeTab;
   LPanel, LControl :TPanel;
@@ -114,13 +114,14 @@ procedure TMainView.CreateMenuPage;
 var
   LTab : TChromeTab;
   LPanel :TPanel;
-  LFrame : IMenuView;
+  LFrame : TMenuView;
 begin
   OpenFrame('Menu Utama',
-    procedure (AOwner: IPanelFrame)
+    procedure (AOwner: TWinControl)
     begin
-      LFrame := GlobalContainer.Resolve<IMenuView>;
-      LFrame.SetMainAndPanel(Self, TPanel(AOwner));
+      LFrame := TMenuView.Create(AOwner);
+      LFrame.Parent := AOwner;
+      LFrame.Main := Self;
       TPanel(AOwner).Tab.HideCloseButton := True;
     end
   );
@@ -145,17 +146,12 @@ begin
   APanel.Show;
 end;
 
-procedure TMainView.OpenFrame(ATitle: string; AProc: TProc<IPanelFrame>);
+procedure TMainView.OpenFrame(ATitle: string; AProc: TProc<TWinControl>);
 var
   LPanel :TPanel;
 begin
   CreateNewPage(ATitle, LPanel);
   AProc(LPanel);
-end;
-
-procedure TMainView.SetPresenter(APresenter: IMainPresenter);
-begin
-  FPresenter := APresenter;
 end;
 
 procedure TMainView.ShowReport;

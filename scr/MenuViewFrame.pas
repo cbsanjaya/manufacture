@@ -11,40 +11,30 @@ type
     SpeedButton1: TSpeedButton;
     procedure SpeedButton1Click(Sender: TObject);
   private
-    FPresenter: IMenuPresenter;
     FMain: IMainView;
     { Private declarations }
   public
-    procedure SetPresenter(APresenter: IMenuPresenter);
-    procedure SetMainAndPanel(AMain: IMainView; APanel: IPanelFrame);
+    property Main: IMainView read FMain write FMain;
   end;
 
 implementation
 
 {$R *.dfm}
 
+uses ProductsViewFrame;
+
 { TMenuView }
-
-procedure TMenuView.SetMainAndPanel(AMain: IMainView; APanel: IPanelFrame);
-begin
-  FMain := AMain;
-  Self.Parent := TWinControl(APanel);
-end;
-
-procedure TMenuView.SetPresenter(APresenter: IMenuPresenter);
-begin
-  FPresenter := APresenter;
-end;
 
 procedure TMenuView.SpeedButton1Click(Sender: TObject);
 var
-  LFrame : IProductsView;
+  LFrame : TProductsView;
 begin
   FMain.OpenFrame('Daftar Barang',
-    procedure (AOwner: IPanelFrame)
+    procedure (AOwner: TWinControl)
     begin
-      LFrame := GlobalContainer.Resolve<IProductsView>;
-      LFrame.SetMainAndPanel(Self.FMain, AOwner);
+      LFrame := TProductsView.Create(Self);
+      LFrame.Main := FMain;
+      LFrame.Parent:= AOwner;
     end
   );
 end;

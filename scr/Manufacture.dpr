@@ -12,7 +12,8 @@ uses
   MenuPresenter in 'MenuPresenter.pas',
   Registrations in 'Registrations.pas',
   ProductsViewFrame in 'ProductsViewFrame.pas' {ProductsView: TFrame},
-  ProductsPresenter in 'ProductsPresenter.pas';
+  ProductsPresenter in 'ProductsPresenter.pas',
+  DataModels in 'DataModels.pas';
 
 {$R *.res}
 

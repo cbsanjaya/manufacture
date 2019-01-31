@@ -10,16 +10,21 @@ uses
   cxDataControllerConditionalFormattingRulesManagerDialog, Data.DB, cxDBData,
   cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls, Vcl.Buttons,
-  Vcl.Menus, Vcl.StdCtrls, cxButtons;
+  Vcl.Menus, Vcl.StdCtrls, cxButtons, Aurelius.Bind.Dataset,
+  System.Generics.Collections, DataModels;
 
 type
   TProductsView = class(TFrame, IProductsView)
     Panel1: TPanel;
-    cxGrid1DBTableView1: TcxGridDBTableView;
-    cxGrid1Level1: TcxGridLevel;
-    cxGrid1: TcxGrid;
+    View: TcxGridDBTableView;
+    Level: TcxGridLevel;
+    Grid: TcxGrid;
     Button1: TButton;
+    ProductsDataSet: TAureliusDataset;
+    ProductsDataSource: TDataSource;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     FPresenter: IProductsPresenter;
     FMain: IMainView;
@@ -27,6 +32,7 @@ type
   public
     procedure SetPresenter(APresenter: IProductsPresenter);
     procedure SetMainAndPanel(AMain: IMainView; APanel: IPanelFrame);
+    procedure ShowData(AProducts: TList<TProducts>);
   end;
 
 implementation
@@ -40,6 +46,11 @@ begin
   FMain.CloseTab(Self.Parent as IPanelFrame);
 end;
 
+procedure TProductsView.Button2Click(Sender: TObject);
+begin
+  FPresenter.LoadData;
+end;
+
 procedure TProductsView.SetMainAndPanel(AMain: IMainView; APanel: IPanelFrame);
 begin
   FMain := AMain;
@@ -50,6 +61,14 @@ end;
 procedure TProductsView.SetPresenter(APresenter: IProductsPresenter);
 begin
   FPresenter := APresenter;
+end;
+
+procedure TProductsView.ShowData(AProducts: TList<TProducts>);
+begin
+  ProductsDataSet.SetSourceList(AProducts);
+  ProductsDataSet.Open;
+
+  View.DataController.CreateAllItems();
 end;
 
 end.

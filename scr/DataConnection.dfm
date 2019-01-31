@@ -3,10 +3,13 @@ object MyDacConnection: TMyDacConnection
   Height = 198
   Width = 282
   object Connection: TMyConnection
-    Database = 
-      'User ID=root;Password=G@in_Pr0f!t_center_database;Data Source=lo' +
-      'calhost;Database=manufacture;Port=33066;Login Prompt=False'
+    Database = 'amdk'
+    Port = 33066
+    Username = 'cahya'
+    Server = 'localhost'
+    LoginPrompt = False
     Left = 24
     Top = 16
+    EncryptedPassword = '9CFF9EFF97FF86FF9EFF'
   end
 end

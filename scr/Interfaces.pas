@@ -3,7 +3,7 @@ unit Interfaces;
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils, System.Generics.Collections, DataModels;
 
 type
   IPanelFrame = interface
@@ -46,10 +46,12 @@ type
 
   IProductsPresenter = interface(IBasePresenter)
     ['{323CEBCE-7104-438E-B346-CF71B75C1756}']
+    procedure LoadData;
   end;
 
   IProductsView = interface(IBaseFrameView<IProductsPresenter>)
     ['{CBB6BF9D-3F30-40C6-AAB9-292CC3B9249A}']
+    procedure ShowData(AProducts: TList<TProducts>);
   end;
 
 implementation

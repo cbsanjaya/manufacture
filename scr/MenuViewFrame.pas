@@ -9,7 +9,9 @@ uses
 type
   TMenuView = class(TFrame)
     SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
   private
     FMain: TMainView;
     { Private declarations }
@@ -21,7 +23,7 @@ implementation
 
 {$R *.dfm}
 
-uses ProductsViewFrame;
+uses ProductsViewFrame, AssembleViewFrame;
 
 { TMenuView }
 
@@ -41,6 +43,18 @@ begin
     procedure (AOwner: TWinControl)
     begin
       LFrame := TProductsView.Create(AOwner, FMain);
+    end
+  );
+end;
+
+procedure TMenuView.SpeedButton2Click(Sender: TObject);
+var
+  LFrame : TAssembleView;
+begin
+  FMain.OpenFrame('Rakit Produk',
+    procedure (AOwner: TWinControl)
+    begin
+      LFrame := TAssembleView.Create(AOwner, FMain);
     end
   );
 end;

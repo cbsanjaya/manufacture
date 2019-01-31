@@ -349,10 +349,20 @@ object MainView: TMainView
     Left = 0
     Top = 30
     Width = 505
-    Height = 419
+    Height = 400
     Align = alClient
     TabOrder = 1
     ExplicitHeight = 201
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 430
+    Width = 505
+    Height = 19
+    Panels = <>
+    ExplicitLeft = 264
+    ExplicitTop = 232
+    ExplicitWidth = 0
   end
   object PopupTabs: TPopupMenu
     Left = 248
@@ -363,6 +373,7 @@ object MainView: TMainView
     Port = 33066
     Username = 'cahya'
     Server = 'localhost'
+    Connected = True
     LoginPrompt = False
     Left = 64
     Top = 102

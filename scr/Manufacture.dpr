@@ -4,7 +4,8 @@ uses
   Vcl.Forms,
   MainViewForm in 'MainViewForm.pas' {MainView},
   MenuViewFrame in 'MenuViewFrame.pas' {MenuView: TFrame},
-  ProductsViewFrame in 'ProductsViewFrame.pas' {ProductsView: TFrame};
+  ProductsViewFrame in 'ProductsViewFrame.pas' {ProductsView: TFrame},
+  AssembleViewFrame in 'AssembleViewFrame.pas' {AssembleView: TFrame};
 
 {$R *.res}
 

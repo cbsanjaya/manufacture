@@ -15,7 +15,7 @@ uses
   Vcl.Menus,
   Data.DB,
   DBAccess,
-  MyAccess;
+  MyAccess, Vcl.ComCtrls;
 
 type
   //interceptor class
@@ -31,6 +31,7 @@ type
     PanelMenu: TPanel;
     PopupTabs: TPopupMenu;
     Con: TMyConnection;
+    StatusBar1: TStatusBar;
     procedure TabsActiveTabChanged(Sender: TObject; ATab: TChromeTab);
     procedure TabsButtonCloseTabClick(Sender: TObject; ATab: TChromeTab;
       var Close: Boolean);

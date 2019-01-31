@@ -37,14 +37,6 @@ object ProductsView: TProductsView
       TabOrder = 1
       OnClick = BtnRefreshClick
     end
-    object BtnTambah: TButton
-      Left = 89
-      Top = 8
-      Width = 75
-      Height = 25
-      Caption = 'Tambah'
-      TabOrder = 2
-    end
   end
   object Grid: TcxGrid
     Left = 0
@@ -62,43 +54,51 @@ object ProductsView: TProductsView
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      NewItemRow.InfoText = 'Tekan di sini Untuk Menambah Data Baru'
+      NewItemRow.Visible = True
       OptionsBehavior.CellHints = True
       OptionsBehavior.DragDropText = True
-      OptionsBehavior.IncSearch = True
-      OptionsData.Deleting = False
-      OptionsData.DeletingConfirmation = False
-      OptionsData.Editing = False
-      OptionsData.Inserting = False
-      OptionsSelection.MultiSelect = True
+      OptionsSelection.UnselectFocusedRecordOnExit = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object Viewid: TcxGridDBColumn
         DataBinding.FieldName = 'id'
+        Visible = False
       end
       object Viewdescription: TcxGridDBColumn
+        Caption = 'Deskripsi'
         DataBinding.FieldName = 'description'
       end
       object Viewunit: TcxGridDBColumn
+        Caption = 'Satuan'
         DataBinding.FieldName = 'unit'
       end
       object Viewcost_price: TcxGridDBColumn
+        Caption = 'Harga Beli'
         DataBinding.FieldName = 'cost_price'
         PropertiesClassName = 'TcxCurrencyEditProperties'
         Properties.DisplayFormat = '#,###.00;(#,###.00);0.00'
       end
       object Viewprice: TcxGridDBColumn
+        Caption = 'Harga Jual'
         DataBinding.FieldName = 'price'
         PropertiesClassName = 'TcxCurrencyEditProperties'
         Properties.DisplayFormat = '#,###.00;(#,###.00);0.00'
       end
       object Viewto_buy: TcxGridDBColumn
+        Caption = 'di Beli'
         DataBinding.FieldName = 'to_buy'
+        HeaderAlignmentHorz = taCenter
       end
       object Viewto_sell: TcxGridDBColumn
+        Caption = 'di Jual'
         DataBinding.FieldName = 'to_sell'
+        HeaderAlignmentHorz = taCenter
       end
       object Viewis_raw: TcxGridDBColumn
+        Caption = 'Baku'
         DataBinding.FieldName = 'is_raw'
+        HeaderAlignmentHorz = taCenter
       end
     end
     object Level: TcxGridLevel

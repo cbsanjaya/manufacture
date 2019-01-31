@@ -31,7 +31,6 @@ type
     Viewto_buy: TcxGridDBColumn;
     Viewto_sell: TcxGridDBColumn;
     Viewis_raw: TcxGridDBColumn;
-    BtnTambah: TButton;
     procedure BtnKeluarClick(Sender: TObject);
     procedure BtnRefreshClick(Sender: TObject);
   private
@@ -45,7 +44,7 @@ implementation
 
 {$R *.dfm}
 
-{ TFrame1 }
+{ TProductsView }
 
 procedure TProductsView.BtnKeluarClick(Sender: TObject);
 begin
@@ -54,7 +53,7 @@ end;
 
 procedure TProductsView.BtnRefreshClick(Sender: TObject);
 begin
-//
+  QProducts.RefreshRecord;
 end;
 
 constructor TProductsView.Create(AOwner: TComponent; AMain: TMainView);
